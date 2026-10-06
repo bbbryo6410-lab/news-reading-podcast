@@ -18,6 +18,15 @@
     <atom:link href="https://bbbryo6410-lab.github.io/news-reading-podcast/feed.xml" rel="self" type="application/rss+xml"/>
 
     <item>
+      <title>Day 60 簿記・会計 — 新リース会計基準でオフィス賃貸もB/Sに</title>
+      <description>Starting in April 2027, Japan will adopt a new accounting rule for leases. Until now, companies that rented offices listed the rent only as an expense. The old lease, which never appeared on the balance sheet, suddenly becomes visible. Under the new rule, almost every lease must be recorded as an asset and a liability. This is surprising because many managers thought renting was simpler than buying. Leases worth three million yen or less are still exempt. So are leases that last twelve months or less. The change follows international rules set in 2016. Experts say some companies' balance sheets will grow sharply, and their equity ratios may fall.</description>
+      <pubDate>Wed, 07 Oct 2026 00:40:56 +0900</pubDate>
+      <enclosure url="https://cdn.jsdelivr.net/gh/bbbryo6410-lab/news-reading-podcast@main/docs/episodes/2026-10-06-3f1bea13.mp3" length="734144" type="audio/mpeg"/>
+      <guid isPermaLink="false">3f1bea13-9881-8146-bda8-dc34aa0a2834</guid>
+      <itunes:duration>00:00:45</itunes:duration>
+      <itunes:explicit>false</itunes:explicit>
+    </item>
+    <item>
       <title>Day 54 日本の時事 — 日経平均、初の6万円超えの裏側</title>
       <description>On April 23, 2026, Japan's Nikkei Stock Average closed above 60,000 yen for the first time. The index finished at exactly 60,013 yen, a surprisingly round number. The Nikkei tracks about 225 major Japanese companies, so this record affects many workers' pensions. Investors had wondered how long the rally could continue before this happened. Some experts say that higher stock prices do not always mean higher wages for ordinary people. In fact, real wages had been falling for months before the record was set. This gap between rising markets and shrinking paychecks surprised many citizens, who had expected better news.</description>
       <pubDate>Sun, 04 Oct 2026 04:45:54 +0900</pubDate>
