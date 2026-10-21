@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>TOEICリスニング素材</title>
+    <link>https://bbbryo6410-lab.github.io/news-reading-podcast/listening/</link>
+    <language>ja</language>
+    <itunes:author>TOEICリスニング素材</itunes:author>
+    <description>毎朝5分。英文を見ながら、通し聞き・オーバーラッピング・シャドーイングをするためのTOEIC Part3/4素材です。</description>
+    <itunes:summary>毎朝5分。英文を見ながら、通し聞き・オーバーラッピング・シャドーイングをするためのTOEIC Part3/4素材です。</itunes:summary>
+    <itunes:image href="https://bbbryo6410-lab.github.io/news-reading-podcast/cover.jpg"/>
+    <itunes:category text="Education"/>
+    <itunes:explicit>false</itunes:explicit>
+    <atom:link href="https://bbbryo6410-lab.github.io/news-reading-podcast/listening/feed.xml" rel="self" type="application/rss+xml"/>
+
+    <item>
+      <title>リスニング素材 第1週 1日目（10/22） Part3 会話 経理：新しい会計ソフトの購入</title>
+      <description>Woman: Hi, Ken. Are you available this afternoon? I need to purchase a new accounting program for our team. Man: Sure. Did you refer to the budget report? The finance office is likely to approve it if we provide a clear cost estimate. Woman: I did. Following the conference call yesterday, I asked the vendor to offer a discount. Man: Great. Anyway, let's check the numbers together at three, and then tell all employees.</description>
+      <pubDate>Wed, 21 Oct 2026 21:00:00 +0900</pubDate>
+      <guid isPermaLink="false">toeic-listening-w1-d1</guid>
+      <enclosure url="https://bbbryo6410-lab.github.io/news-reading-podcast/listening/listening-w1-d1.mp3" length="3258304" type="audio/mpeg"/>
+      <itunes:duration>271</itunes:duration>
+    </item>
+    <item>
+      <title>リスニング素材 第1週 2日目（10/23） Part4 アナウンス ゲーム会社：発売日の延期</title>
+      <description>Speaker: Good morning, everyone. I have an important announcement about our new action game. Due to some technical problems, we have decided to postpone the release by two weeks. The development team will fix the remaining errors and improve the loading speed. This will not affect our budget, but we must adjust our marketing schedule. Please check the updated timeline on the company website, and contact your manager if you have any questions.</description>
+      <pubDate>Wed, 21 Oct 2026 20:59:00 +0900</pubDate>
+      <guid isPermaLink="false">toeic-listening-w1-d2</guid>
+      <enclosure url="https://bbbryo6410-lab.github.io/news-reading-podcast/listening/listening-w1-d2.mp3" length="3029347" type="audio/mpeg"/>
+      <itunes:duration>252</itunes:duration>
+    </item>
+    <item>
+      <title>リスニング素材 第1週 3日目（10/24） Part3 会話 アニメスタジオ：納期の打ち合わせ</title>
+      <description>Man: Hi, Mia. How is the new episode coming along? The deadline is next Friday. Woman: Well, we have a small problem. Two of our artists are sick, so the final scenes are delayed. Man: I see. Can we ask other staff members to help? Woman: Probably. I'll arrange a meeting with the team and confirm the new plan by tomorrow. Man: Good. Please let the client know as soon as possible.</description>
+      <pubDate>Wed, 21 Oct 2026 20:58:00 +0900</pubDate>
+      <guid isPermaLink="false">toeic-listening-w1-d3</guid>
+      <enclosure url="https://bbbryo6410-lab.github.io/news-reading-podcast/listening/listening-w1-d3.mp3" length="3288262" type="audio/mpeg"/>
+      <itunes:duration>273</itunes:duration>
+    </item>
+    <item>
+      <title>リスニング素材 第1週 4日目（10/25） Part4 アナウンス スタジアムの入場案内</title>
+      <description>Speaker: Welcome to the stadium, ladies and gentlemen. The match will begin in thirty minutes. All spectators must have a valid ticket and show it at the entrance. Please note that large bags are not allowed inside, and you can leave them at the storage area near Gate Five. Food and beverages are available at the concession stands. If you need assistance, please ask any staff member. We hope you enjoy the game.</description>
+      <pubDate>Wed, 21 Oct 2026 20:57:00 +0900</pubDate>
+      <guid isPermaLink="false">toeic-listening-w1-d4</guid>
+      <enclosure url="https://bbbryo6410-lab.github.io/news-reading-podcast/listening/listening-w1-d4.mp3" length="2955325" type="audio/mpeg"/>
+      <itunes:duration>246</itunes:duration>
+    </item>
+    <item>
+      <title>リスニング素材 第1週 5日目（10/26） Part3 会話 経理：請求書の金額の確認</title>
+      <description>Woman: Excuse me, Tom. I found a mistake in this invoice. The total is higher than the price we agreed on. Man: Really? Let me check. Oh, they charged us for an extra delivery fee. I'll contact the supplier and ask for a correction. Woman: Thanks. We should also keep a record of every payment from now on. Man: Good idea. I'll send you the corrected invoice by Thursday, so we can pay before the deadline.</description>
+      <pubDate>Wed, 21 Oct 2026 20:56:00 +0900</pubDate>
+      <guid isPermaLink="false">toeic-listening-w1-d5</guid>
+      <enclosure url="https://bbbryo6410-lab.github.io/news-reading-podcast/listening/listening-w1-d5.mp3" length="3278746" type="audio/mpeg"/>
+      <itunes:duration>273</itunes:duration>
+    </item>
+    <item>
+      <title>リスニング素材 第1週 6日目（10/27） Part4 留守番電話 注文した商品の発送連絡</title>
+      <description>Speaker: Hello, this is Laura from Harbor Office Supplies. I'm calling about the items you purchased last week. Unfortunately, one item is currently unavailable, so we cannot ship your entire package today. We will send the remaining item next Monday. If you prefer a refund, please call us back at five five five, zero one two three. Thank you for your patience.</description>
+      <pubDate>Wed, 21 Oct 2026 20:55:00 +0900</pubDate>
+      <guid isPermaLink="false">toeic-listening-w1-d6</guid>
+      <enclosure url="https://bbbryo6410-lab.github.io/news-reading-podcast/listening/listening-w1-d6.mp3" length="3053248" type="audio/mpeg"/>
+      <itunes:duration>254</itunes:duration>
+    </item>
+    <item>
+      <title>リスニング素材 第1週 7日目（10/28） Part3 会話 ゲームイベント：当日のスケジュール</title>
+      <description>Woman: The game show starts at ten tomorrow. Have you checked the program? Man: Yes. The opening ceremony will take place at ten, and the main presentation is at eleven. Woman: Good. I'll demonstrate our new game at our booth. Could you bring extra copies of the brochure? Man: Sure. I'll also check that all the equipment is working properly before the visitors arrive.</description>
+      <pubDate>Wed, 21 Oct 2026 20:54:00 +0900</pubDate>
+      <guid isPermaLink="false">toeic-listening-w1-d7</guid>
+      <enclosure url="https://bbbryo6410-lab.github.io/news-reading-podcast/listening/listening-w1-d7.mp3" length="2894569" type="audio/mpeg"/>
+      <itunes:duration>241</itunes:duration>
+    </item>
+  </channel>
+</rss>
