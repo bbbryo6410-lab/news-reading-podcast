@@ -18,15 +18,55 @@ from mutagen.mp3 import MP3
 NOTION_TOKEN = os.environ["NOTION_TOKEN"]
 DATA_SOURCE_ID = "5fcfcfce-8ade-401a-aecd-49a916637fdb"
 NOTION_VERSION = "2025-09-03"
-VOICE = "en-US-AriaNeural"
+import random
 
-# 話者ラベル(Part3は Woman:/Man:、Part4は Speaker:)ごとの声の割り当て。
-# ラベルのない行(旧形式やPart2の地の文)は直前の話者の声を引き継ぐ。
-SPEAKER_VOICES = {
-    "Woman": "en-US-AriaNeural",
-    "Man": "en-US-GuyNeural",
-    "Speaker": "en-US-AriaNeural",
+# 声は (声の名前, 速さ, 高さ) の組で持つ。速さ・高さは edge-tts の --rate / --pitch。
+# TOEIC本番は米・英・豪・加のなまりが出るので、エピソードごとに下の「声セット」から
+# 1つをランダムに選ぶ(同じページIDなら必ず同じセット=再実行しても声が変わらない)。
+def _v(name, rate="+0%", pitch="+0Hz"):
+    return (name, rate, pitch)
+
+VOICE_SETS = {
+    "US_Guy_Aria": {"man": _v("en-US-GuyNeural"), "woman": _v("en-US-AriaNeural")},
+    "US_Andrew_Ava": {"man": _v("en-US-AndrewNeural"), "woman": _v("en-US-AvaNeural")},
+    "GB_Ryan_Sonia": {"man": _v("en-GB-RyanNeural"), "woman": _v("en-GB-SoniaNeural")},
+    "AU_William_Natasha": {
+        "man": _v("en-AU-WilliamMultilingualNeural"),
+        "woman": _v("en-AU-NatashaNeural"),
+    },
+    "CA_Liam_Clara": {"man": _v("en-CA-LiamNeural"), "woman": _v("en-CA-ClaraNeural")},
+    # 中年女性の声(本人が試聴して選んだ設定: Sonia を少し低く・ゆっくり)
+    "GB_Ryan_SoniaMature": {
+        "man": _v("en-GB-RyanNeural"),
+        "woman": _v("en-GB-SoniaNeural", "-8%", "-15Hz"),
+    },
 }
+
+VOICE = VOICE_SETS["US_Guy_Aria"]["woman"]  # フォールバック用の既定の声
+
+
+def pick_voice_set(seed, avoid=None):
+    """seed(ページID)から声セットを1つ選ぶ。直前のエピソードと同じセットは避ける。"""
+    rng = random.Random(seed)
+    names = sorted(VOICE_SETS)
+    if avoid in names and len(names) > 1:
+        names.remove(avoid)
+    name = rng.choice(names)
+    return name, VOICE_SETS[name], rng
+
+
+def speaker_voices(vset, rng):
+    """話者ラベルごとの声。Part3は Woman/Man、Part2は問いかけ(Q)=男性・返事(A/B/C)=女性、
+    Part4のSpeakerは男女どちらか(ランダム)。"""
+    return {
+        "Woman": vset["woman"],
+        "Man": vset["man"],
+        "Speaker": vset[rng.choice(["man", "woman"])],
+        "Q": vset["man"],
+        "A": vset["woman"],
+        "B": vset["woman"],
+        "C": vset["woman"],
+    }
 
 # Part2: 質問(Q)と選択肢(A/B/C)の直後に置くポーズの長さ(秒)。
 # 「次の番号の前 1.5秒」は、Cの直後のポーズとして表現する
@@ -150,12 +190,12 @@ def get_english_lines(page_id):
     return lines
 
 
-def build_speech_segments(lines):
+def build_speech_segments(lines, voices):
     """「英文全体」の各行を、読み上げ用のセグメント(声・テキスト・直後のポーズ秒数)に変換する。
-    旧形式(ラベルも記号も日本語もないプレーンな行)はそのまま1セグメントになり、
-    今までと同じ結果になる。"""
+    旧形式(ラベルも記号も日本語もないプレーンな行)はそのまま1セグメントになる。
+    voices は speaker_voices() の結果(ラベル→声)。"""
     segments = []
-    current_voice = VOICE
+    current_voice = voices["A"]
     speaker_started = False  # Woman/Man/Speakerラベルに一度でも遭遇したか
 
     for raw_line in lines:
@@ -177,8 +217,8 @@ def build_speech_segments(lines):
         m = LABEL_LINE_RE.match(line)
         if m:
             label, text = m.group(1), m.group(2).strip()
-            if label in SPEAKER_VOICES:
-                new_voice = SPEAKER_VOICES[label]
+            if label in ("Woman", "Man", "Speaker"):
+                new_voice = voices[label]
                 # Part3のターン切り替え(Woman<->Man)の境目に短いポーズを入れる。
                 # 最初のターンや、Part4(ずっとSpeaker=声が変わらない)では発動しない。
                 # Part2のポーズ(0より大きい)を誤って上書きしないよう、0の時だけ書き換える。
@@ -193,6 +233,7 @@ def build_speech_segments(lines):
                 current_voice = new_voice
                 pause = 0.0
             else:  # Q/A/B/C
+                current_voice = voices[label]
                 pause = PART2_PAUSE_AFTER[label]
             if text:
                 segments.append({"voice": current_voice, "text": text, "pause_after": pause})
@@ -204,14 +245,14 @@ def build_speech_segments(lines):
     return segments
 
 
-def build_speech_segments_safe(lines):
+def build_speech_segments_safe(lines, voices):
     """build_speech_segments()が例外を出したり、結果が空になったりした場合は、
     従来どおり「英文全体を丸ごと1回で読む」方式に自動で戻す。
     Podcastの配信が止まることを避けるための保険。"""
     fallback_text = " ".join(line.strip() for line in lines if line.strip())
 
     try:
-        segments = build_speech_segments(lines)
+        segments = build_speech_segments(lines, voices)
     except Exception as e:
         print(f"新しい解析でエラーが発生したため、従来方式(英文全体を丸ごと1回)にフォールバックします: {e}")
         segments = []
@@ -220,7 +261,7 @@ def build_speech_segments_safe(lines):
         if not fallback_text:
             return []
         print("読み上げ用テキストが空だったため、従来方式(英文全体を丸ごと1回)にフォールバックします。")
-        segments = [{"voice": VOICE, "text": fallback_text, "pause_after": 0.0}]
+        segments = [{"voice": voices["A"], "text": fallback_text, "pause_after": 0.0}]
 
     return segments
 
@@ -250,7 +291,9 @@ def synthesize_speech(segments, out_path, title):
                 subprocess.run(
                     [
                         "edge-tts",
-                        "--voice", seg["voice"],
+                        "--voice", seg["voice"][0],
+                        f"--rate={seg['voice'][1]}",
+                        f"--pitch={seg['voice'][2]}",
                         "--file", str(text_file),
                         "--write-media", str(seg_path),
                     ],
@@ -410,7 +453,13 @@ def main():
             print(f"本文が見つかりませんでした: {title}")
             continue
 
-        segments = build_speech_segments_safe(lines)
+        # 声セットをランダムに選ぶ(直前のエピソードと同じセットは避ける)
+        prev_set = episodes[-1].get("voice_set") if episodes else None
+        set_name, vset, rng = pick_voice_set(page_id, avoid=prev_set)
+        voices = speaker_voices(vset, rng)
+        print(f"声セット: {set_name}")
+
+        segments = build_speech_segments_safe(lines, voices)
         if not segments:
             print(f"読み上げ可能なテキストが見つかりませんでした: {title}")
             continue
@@ -436,6 +485,7 @@ def main():
             "title": title,
             "description": body,
             "filename": filename,
+            "voice_set": set_name,
             "file_size": out_path.stat().st_size,
             "duration": duration_str,
             "pub_date_raw": pub_dt.isoformat(),
